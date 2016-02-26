@@ -262,7 +262,7 @@ In this thesis, we apply category theory to explain how can neural networks stor
  \newpage
 
 \clearpage
-\addcontentsline{toc}{section}{带有一阶边界项的Helmholtz方程的稳定性和误差估计}
+\addcontentsline{toc}{section}{人工神经网络的范畴解释及其应用}
 
 
 \clearpage
@@ -271,11 +271,39 @@ In this thesis, we apply category theory to explain how can neural networks stor
   \fancyhead[C]{\kaishu{\rightmark}}
 
 
-\centerline{\Large \heiti 带有一阶边界项的Helmholtz方程的稳定性和误差估计} \vskip
+\centerline{\Large \heiti 人工神经网络的范畴解释及其应用} \vskip
 20mm
 
 
-\section{引论}
+\section{人工神经网络}
+\subsection{神经网络与人工神经网络}
+生物神经网络主要由神经元为主要单元，神经元是大脑处理信息的重要部分。一个神经元的结构如图\ref{fig-sample}所示，其最主要的部分为末梢作为输入和输出的树突和用于传输信号的轴突。当事件发生时信息以电信号的形式在树突上扩布并被整合，电信号在轴突处加以累计，当超过一定的阈值时突破轴突进入作为输出的树突。数十亿个神经元连接成的复杂网络构成了大脑的神经系统。
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{figure1.eps}
+    \caption{}
+    \label{fig-sample}
+\end{figure}
+
+利用计算机可以模拟这样的神经结构，人工神经网络也由人工神经元（下面简称为神经元）构成，其中最基本的结构如图\ref{fig-sample}所示，以神经元m为研究对象，其中$n_k(k=1,2,3)$ 为输入端相连的神经元，每个提供的电流为$a_k(k=1,2,3)$,邻接边上有权重参数$w_k(k=1,2,3)$，在所有的输入之后有激活函数$\sigma(\cdot)$, 则其输出的生物电流为
+\[b=\sigma(\sum_{k=1}^{3}a_kw_k)\]
+其中的$\sigma(x)$常取作取值在(0,1)之间的sigmoid函数
+\[sigma(x)=\frac{1}{1+e^{-x}}\]
+这样的一个结构叫做感知机，一个人工神经网络通常由若干的感知机构成不同的复杂结构。
+\subsection{几种典型的神经网络}
+\subsubsection{自适应共振网络-ART}
+\cite{apt}是人脑的自适应共振理论的基础工作，它揭示了人脑神经元的一种简化的组织形式。这种神经元模型具有长期记忆和新颖物体学习的平衡性，并且能够
+在线更新知识体系。ART1是自适应共振理论对应的最简单的网络结构，如图\ref{art1-sample}所示
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{art1.eps}
+    \caption{}
+    \label{art1-sample}
+\end{figure}
+
+\subsubsection{多层感知机-MLP}
+\subsubsection{卷积神经网络-CNN}
 \begin{align}
 -\De u - k^2 u &=f  \qquad\mbox{in  } \Om,\label{old.1}\\
 \frac{\pa u}{\pa n} -\i k u &=g \qquad\mbox{on } \Ga,\label{old.2}
@@ -766,6 +794,8 @@ k\|u-u_h\|_0&\le C_1(kh)^{p+1}+C_2k(kh)^{2p}.\label{ecor-1-b}
 
 
 \begin{thebibliography}{99}
+\bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and 
+recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
 
 \bibitem{dy} Yu Du and Haijun Wu, {\em Preasymptotic error analysis of higher order FEM and CIP-FEM
 for Helmholtz equation with high wave number}. SIAM J. Numer. Anal., {\bf 53}(2015), pp.
