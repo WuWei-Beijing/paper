@@ -1,0 +1,629 @@
+\documentclass[12pt]{cctart}
+\vsize=29.7 true cm \hsize=21.0 true cm \topmargin 0pt
+\oddsidemargin 12pt \evensidemargin 12pt \textheight=22.5 true cm
+\textwidth=15.5 true cm \pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\vfuzz2pt
+\hfuzz2pt
+
+\def \[{\begin{equation}}
+\def \]{\end{equation}}
+\def \l{\left}
+\def \r{\right}
+\def \endzm{\hfill$\sqcap \!\!\!\! \sqcup$\bigskip}
+\renewcommand{\baselinestretch}{2.4}
+
+
+\usepackage{threeparttable}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\let\CCTCJKfonts=1
+\input CCT.sty
+\renewcommand{\cftsecdotsep}{2}
+\renewcommand{\cftsubsecdotsep}{2}
+\renewcommand{\cfttoctitlefont}{\LARGE\heiti\hfill}
+\renewcommand{\cftaftertoctitle}{\\ [0.3\baselineskip]\mbox{}\hfill{\Large \bf Contents}}
+\renewcommand{\cftaftertoctitleskip}{40mm}
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{定理}[section]
+\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+\newtheorem{definition}{定义}[section]
+\renewcommand{\thedefinition}{\arabic{section}.\arabic{definition}}
+\newtheorem{proposition}{Proposition}[section]
+\renewcommand{\theproposition}{\arabic{section}.\arabic{proposition}}
+\newtheorem{corollary}{推论}[section]
+\renewcommand{\thecorollary}{\arabic{section}.\arabic{corollary}}
+\newtheorem{lemma}{引理}[section]
+\renewcommand{\thelemma}{\arabic{section}.\arabic{lemma}}
+\newtheorem{remark}{注}
+\renewcommand{\theremark}{\arabic{section}.\arabic{remark}}
+\newtheorem{proof}{证明}
+\renewcommand{\theproof}{}
+
+%%%%%%%%%%%%%%%%%%From DU YU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\rem}{{\it Remark }}
+
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\norml}[2]{\left\Vert#1\right\Vert_{L^2(#2)}}
+\newcommand{\norme}[1]{\left\Vert{\hskip -2.7pt}\left\vert #1 \right\vert{\hskip -2.7pt}\right\Vert}
+\newcommand{\normes}[1]{\left\Vert{\hskip -1pt}\left\vert #1 \right\vert{\hskip -1pt}\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\pd}[1]{\left\langle #1\right\rangle}
+\newcommand{\pdjj}[2]{\left\langle \left[#1\right], \left[#2\right]\right\rangle_e}
+\newcommand{\pdaj}[2]{\left\langle \left\{#1\right\}, \left[#2\right]\right\rangle_e}
+\newcommand{\pdja}[2]{\left\langle \left[#1\right], \left\{#2\right\}\right\rangle_e}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\av}[1]{\left\{#1\right\}}
+\newcommand{\jm}[1]{\left[#1\right]}
+\newcommand{\nfrac}[2]{\displaystyle{\genfrac{}{}{0pt}{}{#1}{#2}}}
+
+\newcommand{\wcT}{\widehat{\mathcal{T}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\tuh}{\tilde{u}_h}
+\newcommand{\csta}{C_{\rm sta}}
+\newcommand{\cerr}{C_{\rm err}}
+
+\newcommand{\db}{\displaybreak[0]}
+\newcommand{\nn}{\nonumber}
+\newcommand{\ls}{\lesssim}
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\la}{\lambda}
+\newcommand{\La}{\Lambda}
+\newcommand{\na}{\nabla}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\pa}{\partial}
+\newcommand{\pr}{\prime}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\theta}
+\newcommand{\vp}{\varphi}
+\newcommand{\ze}{\zeta}
+
+\newcommand{\dx}{\,\mathrm{d} x}
+\newcommand{\ds}{\,\mathrm{d} s}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathcal{N}}
+\renewcommand{\a}{\mathfrak{a}}
+\renewcommand{\b}{\mathfrak{b}}
+\renewcommand{\c}{\mathfrak{c}}
+\renewcommand{\d}{\mathfrak{d}}
+\newcommand{\e}{\mathfrak{e}}
+\newcommand{\g}{\mathfrak{g}}
+\renewcommand{\i}{{\rm\mathbf i}}
+\newcommand{\ue}{u_\mathcal{E}}
+\newcommand{\ua}{u_\mathcal{A}}
+
+\DeclareMathOperator{\re}{{Re}}
+\DeclareMathOperator{\im}{{Im}}
+\DeclareMathOperator{\ios}{{\mathcal{I}_{\rm Os}}}
+
+\newcommand{\p}{\partial}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\E}{\mathcal{E}}
+
+\newcommand{\hl}{\underline{h}}
+\newcommand{\gal}{\underline{\gamma}}
+\newcommand{\uhfem}{u_h^{\rm FEM}}
+
+\newcommand{\eq}[1]{\begin{align}#1\end{align}}
+\newcommand{\eqn}[1]{\begin{align*}#1\end{align*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\date{}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% 目录 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \setcounter{page}{1}
+ \pagenumbering{Roman}
+\renewcommand{\baselinestretch}{1.9}
+
+\small\normalsize
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 论文正文 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \renewcommand{\baselinestretch}{1.5}
+ \newpage
+\clearpage
+\addcontentsline{toc}{section}{带有一阶边界项的Helmholtz方程的稳定性和误差估计}
+
+\clearpage
+ \pagestyle{fancy}
+ \fancyhead[LR]{}
+  \fancyhead[C]{\kaishu{\rightmark}}
+
+
+\centerline{\Large \heiti 带有一阶边界项的Helmholtz方程的稳定性和误差估计} \vskip
+20mm
+
+
+\section{引论}
+
+\begin{align}
+-\De u - k^2 u &=f  \qquad\mbox{in  } \Om,\label{old.1}\\
+\frac{\pa u}{\pa n} -\i k u &=g \qquad\mbox{on } \Ga,\label{old.2}
+\end{align}
+
+\begin{align}
+-\De u - k^2 u &=f  \qquad\mbox{in  } \Om,\label{new.1}\\
+\frac{\pa u}{\pa n} -\i k u +\frac{1}{2R}u &=g \qquad\mbox{on } \Ga,\label{new.2}
+\end{align}
+\bigskip
+
+
+\section{公式和符号}
+$\Om$为圆点在$(0,0)$半径为R的圆。\,$\Ga$ 为 $\Om$ 的边界，即$\pa\Om$。\,$i:= \sqrt{-1}$ 。\,$k$ 为波数。
+通篇中，$C$用来标记与$h,k,f,g$无关的正常数。我们用记号 $A\lesssim B$ 和 $B\gtrsim A$ 来分别表示 $A\leq C B$ 和 $B\geq CA$.
+$A\eqsim B$ 是 $A\lesssim B$ and $B\lesssim A$ 的缩写. 因为考虑的是高波数问题，所以假设 $k\gg 1$，且是个定值。 $p=O(1)$ 也是个定值。
+
+$(\cdot,\cdot)_\Om$ 表示 $\Om$ 上的 $L^2$ 内积。\,$\pd{ \cdot,\cdot}_\Ga$ 表示 $\Ga$ 上的$L^2$内积。我们用如下缩写： $(\cdot,\cdot):=(\cdot,\cdot)_\Om$ 和 $\pd{ \cdot,\cdot}:=\pd{ \cdot,\cdot}_{\p\Om}$,\, $\norm{\cdot}_j:=\norm{\cdot}_{H^j(\Om)}$ 和 $\abs{\cdot}_j:=\abs{\cdot}_{H^j(\Om)}$。
+
+$V_h:=\set{v_h \in H^1(\Omega):\ v_h\mid_K\circ F_K \in \mathcal P_p(\widehat K)\ \forall K \in \T_h},$\qquad
+即$V_h$是$\Om$上的p阶分片多项式空间，其中，$\T_h$是$\Om$的一致三角剖分，$h=\max_{K\in\T_h}h_K$，$\widehat K$是三角形K的参考单元，$F_K$是从$\widehat K$到$K$的映射，$\mathcal P_p(\widehat K)$是$\widehat K$上的所有次数不超过p的多项式的集合。
+
+$\E_h^I$是$\T_h$的所有的内部边（面）的集合。对于每一个$e=\p K\cap \p K^\pr\in\E_h^I$,令$n_e$为指向$e$的单位法向量,定义$v$在$e$上的跳量为$\jm{v}|_{e}:= v|_{K^\pr}-v|_{K}.$
+
+我们定义能量空间$V$和在$V\times V$上的双线性形式$a_\ga(\cdot,\cdot)$如下:
+\begin{align}
+V&:=H^1(\Om)\cap\prod_{K\in\T_h} H^{p+1}(K), \nonumber \\
+a_\ga(u,v)&:=a(u,v)+  J(u,v)\qquad\forall\, u, v\in V, \label{aGa}\\
+J(u,v)&:=\sum_{j=1}^p\sum_{e\in\E_h^{I}}i\ga_{j,e}\, h_e^{2j-1} \pdjj{\frac{\pa^j u}{\pa n_e^j}}{\frac{\pa^j v}{\pa n_e^j}}, \label{eJ}
+\end{align}
+其中$\ga_{j,e}, e\in\E_h^I$ 是拥有非负虚部的惩罚因
+子。\\
+显然如果 $u\in H^{p+1}(\Om)$ , $v\in V$, 有$J(u,v)=0$. 因此如果 $u\in H^{p+1}(\Om)$ 是
+$\eqref{new.1}-\eqref{new.2}$ 的解, 那么有
+\begin{equation}
+a_\ga(u,v) - k^2(u,v) -\i k \pd{ u,v}+\frac{1}{2R}\pd{u,v}
+=(f,v)+\pd{g, v} \qquad\forall v\in V.  \label{variation}
+\end{equation}
+于是 CIP-FEM 就如下述定义: 找到 $u_h\in V_h$ 使得
+%
+\begin{equation}
+a_\ga(u_h,v_h) - k^2(u_h,v_h) -\i k \pd{ u_h,v_h}+\frac{1}{2R}\pd{u_h,v_h}
+=(f, v_h)+\pd{g, v_h}  \qquad\forall v_h\in V_h. \label{cip-fem}
+\end{equation}
+
+我们在 $V$ 上定义如下范数:
+\begin{align}\label{e2.5}
+\norm{v}_{1,\ga}:=&\bigg( \norm{\na v}_0^2+\sum_{e\in\E_h^{I}}\ga_e h_e \norml{\jm{\frac{\pa v}{\pa n_e}}}{e}^2\bigg)^{1/2},\\
+\abs{v}_{1,\ga}:=&\bigg( \norm{\na v}_0^2+\sum_{j=1}^p\sum_{e\in\E_h^{I}}\abs{\ga_{j,e}}\, h_e^{2j-1}\norm{\left[\frac{\pa^j v}{\pa n_e^j}\right]}_{L^2(e)}^2\bigg)^{1/2},\\
+\norm{v}_{1,\ga}:=&\big(\abs{v}_{1,\ga}^2+\norm{v}_0^2\big)^{1/2},\label{e2.5b}\\
+\norme{v}_\ga:=&\big(\norm{v}_{1,\ga}^2+k^2\norm{v}_0^2\big)^{\frac12}.\label{e2.5c}
+\end{align}
+因为精确解不在 $V$ 中, 我们定义如下范数来衡量离散误差:
+\begin{align}\label{e2.6a}
+E_\ga(v,v_h):=&\bigg( \norm{v-v_h}_1^2+\sum_{j=1}^p\sum_{e\in\E_h^{I}}\abs{\ga_{j,e}}\, h_e^{2j-1}\norm{\left[\frac{\pa^j v_h}{\pa n_e^j}\right]}_{L^2(e)}^2\bigg)^{1/2},\\
+\mathbb{E}_\ga(v,v_h):=&\big(E_\ga(v,v_h)^2+k^2\norm{v-v_h}_0^2\big)^{\frac12}\quad \forall v\in H^1(\Om), v_h\in V_h.\label{e2.6b}
+\end{align}
+
+\bigskip
+
+\section{引理}
+\begin{lemma}
+令$\al(x):=x-x_\Om$.有
+\begin{align}
+d\norm{v}_{L^{2}(\Om)}^2+2Re(v,\al\cdot\na v)=\int_{\pa \Om} \al\cdot n \abs{v}^2, \qquad \forall v \in H^1 (\Om), \label{f1.1} \\
+(d-2)\norm{\na v}_{L^2(\Om)}^2+2Re(\na v,\na (\al\cdot\na v))= \int_{\pa \Om} \al\cdot n \abs{\na v}^2, \qquad \forall v \in H^2 (\Om) . \label{f1.2}
+\end{align}
+上述恒等式也称为Rellich恒等式。
+\begin{proof}
+证明见\cite{textbook}
+\end{proof}
+\end{lemma}
+
+\begin{lemma} \label{stable}
+散射问题 $\eqref{new.1}-\eqref{new.2}$ 的解满足
+\begin{align}
+\norm{u}_{H^j(\Om)}\lesssim k^{j-1}(\norm{f}_{L^{2}(\Om)}+\norm{g}_{L^{2}(\Ga)}), \quad j=0,1,  \label{f2.1}\\
+\norm{u}_{H^2(\Om)}\lesssim k(\norm{f}_{L^{2}(\Om)}+\norm{g}_{L^{2}(\Ga)})+\norm{g}_{H^{\frac{1}{2}}(\Ga)}. \label{f2.2}
+\end{align}
+\begin{proof}
+在变分公式\label{ecip}中令$v=u$,并取实部得：
+\begin{align}\label{f2.3}
+\norm{\na u}_{L^2(\Om)}^2-k^2\norm{u}_{L^2(\Om)}^2\le\abs{(f,u)+\pd{g,u}}\le\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+\norm{g}_{L^2(\Ga)}\norm{u}_{L^2(\Ga)}.
+\end{align}
+取虚部得：
+\begin{align}
+ k\norm{u}_{L^2(\Ga)}^2 &\le\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+\norm{g}_{L^2(\Ga)}\norm{u}_{L^2(\Ga)} \nonumber \\
+ &\le\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+\frac{1}{2k}\norm{g}_{L^2(\Ga)}^2+\frac{k}{2}\norm{u}_{L^2(\Ga)}^2 \nonumber
+\end{align}
+从而
+\[ k\norm{u}_{L^2(\Ga)}^2 \le 2\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+\frac{1}{k}\norm{g}_{L^2(\Ga)}^2  \label{f2.4} \]
+带入\eqref{f2.3}得
+\begin{align}\label{f2.5}
+\norm{\na u}_{L^2(\Om)}^2-k^2\norm{u}_{L^2(\Om)}^2\le 2\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+\frac{1}{k}\norm{g}_{L^2(\Ga)}^2.
+\end{align}
+其次，在\eqref{aGa}中令 $v=\al\cdot\na u$, 并取实部得
+$$ 2Re(\na u,\na(\al\cdot\na u))-2k^2 Re(u,\al\cdot\na u)-2kIm\pd{u,\al\cdot\na u}=2Re((f,\al\cdot\na u)+\pd{g,\al\cdot\na u}).$$
+由\eqref{f1.1}和\eqref{f1.2}及上式得：
+\begin{align}
+\int_\Ga \al\cdot n \abs{\na u}^2-(d-2)\norm{\na u}_{L^2(\Om)}^2-k^2 \int_{\pa \Om} \al\cdot n \abs{u}^2+dk^2 \norm{u}_{L^2(\Om)} -2k Im \pd{u,\pa \cdot \na u} \notag\\= 2Re((f,\al \cdot \na u)+\pd{g,\al\cdot\na u}). \notag
+\end{align}
+从而由\eqref{f2.4}和\eqref{f2.5}得：
+\begin{align}\notag
+k^2\norm{u}_{L^2(\Om)}^2 &=-\int_\Ga \al\cdot n \abs{\na u}^2-\norm{\na u}_{L^2(\Om)}^2+(d-1)(\norm{\na u}_{L^2(\Om)}^2-k^2\norm{u}_{L^2(\Om)}^2) \notag\\
+&+k^2\int_\Om \al\cdot n \abs{u}^2+2k Im \pd{u,\pa \cdot \na u}+2Re((f,\al \cdot \na u)+\pd{g,\al\cdot\na u}) \notag\\
+& \le -R\int_\Ga\abs{\na u}^2-\norm{\na u}_{L^2(\Om)}^2+(d-1)\norm{\na u}_{L^2(\Om)}^2-k^2\norm{u}_{L^2(\Om)}^2 \notag\\
+& +Ck^2\norm{u}_{L^2(\Ga)}^2+Ck\norm{u}_{L^2(\Ga)}\norm{\na u}_{L^2(\Ga)}  \notag\\
+& +C\norm{f}_{L^2(\Om)}\norm{\na u}_{L^2(\Om)}+C\norm{g}_{L^2(\Ga)}\norm{\na u}_{L^2(\Ga)} \notag \\
+& \le C\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+Ck^2 \norm{u}_{L^2(\Ga)}^2+C\norm{f}_{L^2(\Om)}^2+C\norm{g}_{L^2(\Ga)}^2 \notag\\
+& \le Ck\norm{f}_{L^2(\Om)}\norm{u}_{L^2(\Om)}+C\norm{f}_{L^2(\Om)}^2+C\norm{g}_{L^2(\Ga)}^2 \notag\\
+&\le \frac{k^2}{2} \norm{u}_{L^2(\Ga)}^2+C\norm{f}_{L^2(\Om)}^2+C\norm{g}_{L^2(\Ga)}^2 \notag
+\end{align}
+故
+$$ \norm{\na u}_{L^2(\Om)}\lesssim \frac{1}{k}(\norm{f}_{L^2(\Om)}+\norm{\na g}_{L^2(\Om)} $$
+即引理的结论对$j=0$成立，带入\label{formula2.3}得$j=1$也成立。\\
+最后，由椭圆方程的正则性理论，可得：
+\begin{align}
+\norm{u}_{H^2(\Om)} &\lesssim \norm{(1+k^2)u+f}_{L^2(\Om)}+\norm{g+iku-\frac{u}{2R}}_{H^{\frac{1}{2}}(\Ga)} \notag\\
+& \lesssim k^2 \norm{u}_{L^2(\Om)} +\norm{f}_{L^2(\Om)}+\norm{g}_{H^{\frac{1}{2}}(\Ga)}+k\norm{u}_{H^1(\Om)} \notag\\
+& \lesssim k(\norm{f}_{L^{2}(\Om)}+\norm{f}_{L^{2}(\Ga)})+\norm{g}_{H^{\frac{1}{2}}(\Ga)}. \notag
+\end{align}
+\end{proof}
+\end{lemma}
+
+\begin{corollary}
+易得：
+$$ k^2\norm{u}_0+k\norm{u}_1+\norm{u}_2\lesssim k(\norm{f}_0+\norm{g}_{L^2(\Ga)})+\norm{g}_{H^{\frac{1}{2}}(\Ga)}. \label{cor.2}$$
+\end{corollary}
+
+\begin{lemma}
+$\Om$ 是个带有解析边界的星形区域，$f \in L^2(\Om),\,g \in H^{\frac{1}{2}}(\Ga). $ 则问题\eqref{old.1}--\eqref{old.2}的解可以写成 $u=\ue+\ua$,并有
+\begin{align}
+ |\ue|_j&\ls k^{j-2}C_{f,g},\quad j=0,1,2,\label{u_E}\\
+ \abs{u_{\mathcal{A}}}_j&\ls k^{j-1}C_{f,g}\quad\forall j\in \mathbb{N}_0. \label{u_A}
+\end{align}
+这里，$C_{f,g}:=\|f\|_0+\|g\|_{H^{1/2}(\Ga)}$.
+\begin{proof}
+证明见\cite{ls95}
+\end{proof}
+
+\begin{corollary}
+对于问题\eqref{new.1}--\eqref{new.2}也有相同的结论：
+\begin{proof}
+将问题\eqref{new.1}--\eqref{new.2}变为：
+\begin{align}
+-\De u - k^2 u &=f  \qquad\qquad\qquad\mbox{in  } \Om, \notag  \\
+\frac{\pa u}{\pa n} -\i k u &=-\frac{1}{2R}u +g \qquad\mbox{on } \Ga  \notag
+\end{align}
+用上述引理可得：$u=\ue+\ua$，
+其中$\ue,\ua$满足：
+\begin{align}
+\abs{\ue}_j&\lesssim k^{j-2}(\norm{f}_0+\norm{g-\frac{u}{2R}}_{H^{\frac{1}{2}}(\Ga)}),\quad j=0,1,2,\label{tmp1}\\
+ \abs{u_{\mathcal{A}}}_j&\lesssim k^{j-1}(\norm{f}_0+\norm{g-\frac{u}{2R}}_{H^{\frac{1}{2}}(\Ga)})\quad\forall j\in \mathbb{N}_0. \label{tmp2}
+\end{align}
+由\eqref{tmp1} 以及引理\ref{stable}可得：
+\begin{align}
+\abs{\ue}_j&\lesssim k^{j-2}(\norm{f}_0+\norm{g}_{H^{\frac{1}{2}}(\Ga)}+\norm{u}_{H^1(\Ga)}) \notag \\
+&\lesssim k^{j-2}(\norm{f}_0+\norm{g}_{H^{\frac{1}{2}}(\Ga)}+\norm{u}_{H^1(\Om)})  \notag \\
+&\lesssim k^{j-2}(\norm{f}_0+\norm{g}_{H^{\frac{1}{2}}(\Ga)}+(\norm{f}_0+\norm{g}_{L^2(\Ga)}) \notag \\
+&\lesssim k^{j-2}C_{f,g},\quad j=0,1,2, \notag
+\end{align}
+同理可得$\ua$的证明。
+\end{proof}
+\end{corollary}
+\end{lemma}
+
+\begin{lemma}
+ 设$\Om$ 是带有解析边界的严格星形区域, $s\ge 2$ , $f\in H^{s-2}(\Om)$ , $g\in H^{s-3/2}(\Ga)$.
+于是问题\eqref{new.1}--\eqref{new.2}满足如下的稳定性估计：
+\begin{align}
+ \norm{u}_s&\ls k^{s-1}C_{s-2,f,g},\label{estau}
+\end{align}
+其中 $C_{s-2,f,g}:=\|f\|_0+\|g\|_{L^2(\Ga)}+\sum_{j=0}^{s-2}k^{-(j+1)}\big(\|f\|_j+\|g\|_{H^{j+1/2}(\Ga)}\big)$.
+\end{lemma}
+\begin{proof} 我们用诱导公式证明。从\label{cor.2}可知，当 $s=2$ 时结论成立。接下来我们假设下式成立：
+ \begin{align}
+ \norm{u}_l&\ls k^{l-1}C_{l-2,f,g}, \quad 2\le l\le s-1. \notag
+\end{align}
+注意到原问题可以写成
+\begin{align*}
+-\De u + u &=(k^2+1)u+f  \quad\mbox{in  } \Om,\qquad \\
+\frac{\pa u}{\pa n} &= \i k u-\frac{u}{2R} +g \quad\mbox{on } \Ga.
+\end{align*}
+运用带诺依曼边界条件的泊松方程的正则估计和迹不等式可得：
+\begin{align*}
+\norm{u}_s&\ls \norm{(k^2+1)u+f}_{s-2}+\norm{\i k u-\frac{u}{2R} +g}_{H^{s-3/2}(\Ga)} \notag\\
+&\ls k^2\norm{u}_{s-2} + \norm{f}_{s-2} + k\norm{u}_{s-1} +\norm{g}_{H^{s-3/2}(\Ga)} \notag\\
+&\ls k^{s-1}(\|f\|_0+\|g\|_{L^2(\Ga)}\big) + \sum_{j=0}^{s-2}k^{s-j-2}\big(\|f\|_j+\|g\|_{H^{j+1/2}(\Ga)}\big) \notag\\
+&\ls k^{s-1}C_{s-2,f,g}. \notag
+\end{align*}
+于是结论成立。
+\end{proof}
+
+\section{对不同边界的误差分析}
+二维的Helmholtz方程的解有如下的渐进展开：
+\[u\sim\sqrt{\frac{2}{\pi kr}}e^{i(kr-\pi /2)} \sum_{j=0}^{\infty} \frac{f_j(\theta)}{r^j}.\notag \]
+令$B=\frac{\pa}{\pa r}-ik+\frac{1}{2r}$,则通过简单计算有：
+\[ \abs{Bu}=O(\frac{1}{r^{\frac{5}{2}}}) \notag \]
+记$\norm{w}_{(r)}^2 =\int\int_{\abs{y}=r} \abs{w(y)}^2 dA_y.$
+\begin{lemma}
+对于方程：
+\begin{align}
+\De w+k^2 w=0 \qquad in \,\, \Om, \\
+\frac{u}{r}-iku=h \qquad on \,\, \pa\Om,
+\end{align}
+其中$\Om$是圆心在原点，大小为R的圆。我们有如下的估计：
+\[\norm{w}_{(r_1)}\le \frac{\norm{h}_{(r_1)}}{k}. \]
+\end{lemma}
+
+\begin{proof}
+记$w$的共轭复数为$\bar{w}$,由Green公式可得:\\
+\[\int_\Om \abs{grad w}^2 \, dV -k^2\int_\Om \abs{w^2} \, dV = \int_{\Ga_2} \bar{w} \frac{\pa w}{\pa r}\, dA. \label{t1}\]
+由边界条件可得：\\
+\[ \int_{\Ga_2} \bar{w} \frac{\pa w}{\pa r} \, dA = ik\int_{\Ga_2} \abs{w^2} \, dA + \int_{\Ga_2} wh \,dA. \label{t2} \]
+将\eqref{t2}代入\eqref{t1}并取虚部可得：
+\[\norm{w}_{(r_1)}^2 = \int_{\Ga_2} \abs{w^2} \, dA = \frac{1}{k}\int_{\Ga_2} wh \, dA \le \frac{\norm{w}_{(r_1)}\norm{h}_{(r_1)}}{k}. \notag \]
+于是就得到证明。
+\end{proof}
+
+\begin{corollary}
+方程$$\De u+k^2 u=0$$
+当边界条件是\,\,$\frac{u}{r}-iku=0$\,\,时，由上述引理可知，解$u$与高波散射问题的真实解$v$的误差为:
+\[\norm{w}_{(r_1)}=\norm{u-v}_{(r_1)}\le \frac {\norm{h}_{(r_1)}}{k} \notag \]
+由于二维Helmholtz方程中:
+\[\abs{h} \le \frac{C}{r^{\frac{5}{2}}} \notag \]
+所以有，
+\[\norm{w}_{(r_1)} \le \frac{C}{kr^2} \notag \]
+\[\norm{\frac{\pa w}{\pa r}}_{(r_1)} \le (k+\frac{1}{k})\norm{w}_{(r_1)}+\norm{h}_{(r_1)} \le (2+\frac{1}{kr})\norm{h}_{(r_1)} \le \frac{C}{r^2} (2+\frac{1}{kr}). \notag \]
+
+同理，当边界条件是\,\,$\frac{u}{r}-iku+\frac{1}{2r}=0$ \,\,时，解$u$与高波散射问题的真实解$v$的误差为：
+\[\norm{w}_{(r_1)}=\norm{u-v}_{(r_1)}\le \frac {\norm{h}_{(r_1)}}{k} \notag \]
+此时,
+\[\abs{h} \le \frac{C}{r^{\frac{5}{2}}} \notag \]
+所以有，
+\[\norm{w}_{(r_1)} \le \frac{C}{kr^2} \notag \]
+\[\norm{\frac{\pa w}{\pa r}}_{(r_1)} \le (k+\frac{1}{k})\norm{w}_{(r_1)}+\norm{h}_{(r_1)} \le (2+\frac{1}{kr})\norm{h}_{(r_1)} \le \frac{C}{r^2} (2+\frac{1}{kr}). \notag \]
+\end{corollary}
+
+\section{预渐进误差分析}
+\subsection{一些引理}
+下面假设 $hk\lesssim 1 $
+\begin{lemma}\label{lapprox1g}
+令 $1\le s\le p+1$. 假设 $u \in H^s(\Omega)$. 于是存在 $\hat{u}_h \in V_h$ 使得
+\begin{align}\label{elapprox1ag}
+\norm{u-\hat{u}_h}_0+h E_\ga(u,\hat{u}_h)&\lesssim  h^s|u|_s.
+\end{align}
+\end{lemma}
+\begin{proof}
+ 证明见\cite{dy}
+\end{proof}
+
+ \begin{lemma}\label{error2g}
+设$u$ 是问题\eqref{new.1}--\eqref{new.2}的解。假设 $f\in L^2(\Om)$ ， $g\in H^{1/2}(\Ga)$. 则存在 $\hat{u}_h \in V_h$ 使得
+\begin{align}
+\|u-\hat{u}_h\|_0+h\mathbb{E}_\ga(u,\hat{u}_h)&\lesssim \big(h^2+h(kh)^p\big) C_{f,g}, \label{u_err0g}
+\end{align}
+其中 $C_{f,g}=C(\norm{f}_0+\norm{g}_{L^2(\Om)})$
+\end{lemma}
+\begin{proof}
+由引理3.3知可将$u$分解成 $u=\ue+\ua$ 其中$\ue \in H^2,\, \ua \in H^j, \, $ 对于任意$j\ge 0$.\\
+对于$\ue$由上述引理可知存在$\widehat\ue_h$ 使得：
+\begin{align}
+\|\ue-\widehat{\ue}_h\|_0+h\mathbb{E}_\ga(\ue,\widehat{\ue}_h) &\lesssim \norm{\ue-\widehat\ue_h}_0+hk\norm{\ue-\widehat\ue_h}_0+hE_\ga(\ue,\widehat{\ue}_h) \notag \\
+&\lesssim (1+hk)(\norm{\ue-\widehat\ue_h}_0+h E_\ga(\ue,\widehat\ue_h))  \notag\\
+&\lesssim  (1+hk)h^2|\ue|_2\lesssim h^2 C_{f,g},  \notag
+\end{align}
+同理可知，存在$\widehat\ua_h$ 使得：
+\begin{align}
+\|\ua-\widehat{\ua}_h\|_0+h\mathbb{E}_\ga(\ua,\widehat{\ua}_h) &\lesssim \norm{\ua-\widehat\ua_h}_0+hk\norm{\ua-\widehat\ua_h}_0+hE_\ga(\ua,\widehat{\ua}_h) \notag \\
+&\lesssim (1+hk)(\norm{\ua-\widehat\ua_h}_0+h E_\ga(\ua,\widehat\ua_h))  \notag\\
+&\lesssim  (1+hk)h^{p+1}|\ua|_{p+1}\lesssim k^ph^{p+1} C_{f,g},  \notag
+\end{align}
+令$\hat u_h=\widehat\ue_h+\widehat\ua_h$于是有
+\begin{align}
+\|u-\hat{u}_h\|_0+h\mathbb{E}_\ga(u,\hat{u}_h) &\lesssim (\|\ue-\widehat{\ue}_h\|_0+h\mathbb{E}_\ga(\ue,\widehat{\ue}_h))
++(\|\ua-\widehat{\ua}_h\|_0+h\mathbb{E}_\ga(\ua,\widehat{\ua}_h)) \notag \\
+&\lesssim h^2C_{f,g}+k^ph^{p+1} C_{f,g} \notag \\
+&\lesssim (h^2+h(kh)^p\big) C_{f,g} \notag
+\end{align}
+
+\end{proof}
+
+\begin{lemma}\label{lga0} 存在常数 $\ga_0<0$ 使得如果 $\ga_0\le\ga_{j,e}\ls 1, $ 则对于任意的 $ 1\le j\le p, e\in \E_h^I$,有：
+\eq{a_\ga(v_h,v_h)^{1/2}\eqsim\norm{\na v_h}_0, \quad\forall v_h\in V_h.\label{elga0}}
+\end{lemma}
+\begin{proof}
+证明见\cite{dy}
+\end{proof}
+
+\begin{remark}
+由上述引理可知，如果 $|\ga_{j,e}|\ls 1,  $ 则对于任意的 $ 1\le j\le p, e\in \E_h^I$, 有
+\eqn{\norm{v_h}_{1,\ga}\eqsim\norm{v_h}_1 \quad\forall v_h\in V_h.}
+\end{remark}
+\emph{在下文中我们都假设$\ga_0$保证上述引理成立的，即有$\ga_0\le\ga_{j,e}\ls 1 $ for $ 1\le j\le p, e\in \E_h^I$.}
+
+\subsection{离散椭圆算子和离散Sobolev范数}
+定义如下的椭圆投影算子 $P_{h,\ga}$ ：
+\eq{a_\ga(P_{h,\ga}\vp, v_h)+(P_{h,\ga}\vp,v_h)=a(\vp, v_h)+(\vp,v_h) \quad\forall v_h\in V_h, \vp\in V,\label{ePhg}}
+则我们有下列在$H^1,L^2,$以及负范数上的误差估计。
+\begin{lemma}\label{ph} 对于任意的 $-1\le j\le p-1$ ， $\vp\in H^1(\Om)$, 有
+\eqn{\norm{\vp-P_{h,\ga}\vp}_{-j}\ls h^{j+1}\inf_{\vp_h\in V_h}E_\ga(\vp,\vp_h).}
+\end{lemma}
+\begin{proof}
+证明见\cite{dy}
+\end{proof}
+
+定义离散的soblev算子 $A_{h,\ga}: V_h\mapsto V_h$ ：
+\eq{(A_{h,\ga} v_h,w_h)=a_\ga(v_h,w_h)+(v_h,w_h)\quad\forall v_h,w_h\in V_h. \notag }
+有引理可知 $A_{h,\ga}$ 是对称和正定的。因此我们可以通过算子的特征值和特征函数来定义算子的大小.
+$A_{h,\ga}$的特征值和特征函数分别记为：
+\begin{align}
+\la_{1h,\ga}<\la_{2h,\ga}<\cdots<\la_{\dim(V_h)h,\ga} \notag \\
+\phi_1,\phi_2,\cdots \quad\text{and}\quad \phi_{1h},\phi_{2h},\cdots,\phi_{\dim(V_h)h} \notag
+\end{align}
+易知这些特征值都是正的，并且特征函数构成了$V_h$的一组正交基。\\
+对于任意的实数j,我们如下定义$A_h^{j}$ :\\
+令\qquad$v_h=\sum_{m=1}^{\dim(V_h)}a_m\phi_{mh},$ \qquad 则 $\qquad A_h^jv_h=\sum_{m=1}^{\dim(V_h)}\la_{mh}^ja_m\phi_{mh}. \notag $\\
+对于任意整数j,在$V_h$上我们定义如下的离散$H^j$范数:
+\eq{\norm{v_h}_{j,h,\ga}=\norm{A_{h,\ga}^{j/2}v_h}_0. \notag }
+易知：
+\eq{\norm{v_h}_{0,h,\ga}=\norm{v_h}_0,\,\norm{v_h}_{1,h,\ga}=(A_{h,\ga}v_h,v_h)^{1/2}\eqsim\norm{v_h}_1\eqsim\norm{v_h}_{1,\ga}\forall v_h\in V_h. \notag }
+
+\begin{lemma}\label{lAhinvg} 对于任意整数 $j$,有
+\eqn{\norm{v_h}_{j,h,\ga}\ls h^{-1}\norm{v_h}_{j-1,h,\ga}\quad\forall v_h\in V_h.}
+\end{lemma}
+
+\begin{lemma}\label{lAhnormg} 对于任意整数j, $0\le j\le p+1$, 有
+\eq{\norm{v_h}_{-j,h,\ga}&\ls \sum_{m=0}^{j}h^{j-m}\norm{v_h}_{-m}, \quad\forall v_h\in V_h.\label{enormh-jag}}
+\end{lemma}
+
+\subsection{预渐进误差分析}\label{sec-preasy-dual-g}
+下面的定理给出CIP-FEM的预渐进误差分析。
+\begin{theorem}\label{pre-err}
+ 设$u$ 和$u_h$分别是\eqref{new.1}--\eqref{new.2}和\eqref{cip-fem}的解，则存在常数与 $k, h$无关的$C_0$使得如果
+\begin{equation}\label{econd1g}
+k(kh)^{2p}\le C_0, \notag
+\end{equation}
+则有如下的误差估计：
+\begin{align}\label{error-eh1g}
+\mathbb{E}_\ga(u,u_h)&\lesssim \big(1+k(kh)^p\big)\inf_{z_h \in V_h}\mathbb{E}_\ga(u,z_h),  \\
+\|u-u_h\|_0&\lesssim \big(h+(kh)^p\big)\inf_{z_h \in V_h}\mathbb{E}_\ga(u,z_h).\label{error-eh2g}
+\end{align}
+\end{theorem}
+
+\begin{proof} 假设 $kh\ls 1$. 令 $P_hu$ 为 $u$ 的椭圆投影算子。令 $$e_h:=u-u_h=(u-P_hu)+(P_hu-u_h):=\rho+\ta_h.$$ 从引理\ref{ph}~可得：
+\eq{\norm{\rho}_{-j}\ls h^{j+1}\norme{\rho}\ls h^{j+1}\inf_{z_h \in V_h}\norme{u-z_h},\quad 0\le j\le p-1.\label{erho}}
+剩下来就只需要估计 $\ta_h$了.
+由等式\ref{variation}和\ref{cip-fem}我们有如下的Galerkin正交性：
+\begin{equation*}
+a(e_h,v_h)-k^2(e_h,v_h)+\i k\langle e_h,v_h \rangle=0\quad\forall v_h\in V_h.
+\end{equation*}
+变形可得：
+\begin{equation}\label{ecipfemorth}
+a(\ta_h,v_h)-k^2(\ta_h,v_h)+\i k\pd{\ta_h,v_h}=(k^2+1)(\rho,v_h)-\i k\pd{\rho,v_h}\quad\forall v_h\in V_h.
+\end{equation}
+
+\emph{Step 1.}这一步我们用$\ta_h$的$(p-1)$阶的离散范数来估计$\norml{\ta_h}{\Ga}$ 。 令 $v_h=\ta_h$ 代入上式并取虚部可得：
+\eqn{k\norml{\ta_h}{\Ga}^2&=\im \big((k^2+1)(Q_h\rho,\ta_h)\big)-\re\big(k\pd{\rho,\ta_h}\big)\\
+&\le(k^2+1)\norm{Q_h\rho}_{1-p,h}\norm{\ta_h}_{p-1,h}+k\norml{\rho}{\Ga}\norml{\ta_h}{\Ga}.}
+引理\ref{ph}中取 $\vp_h=P_hu$, 我们有
+\eqn{\norm{Q_h\rho}_{1-p,h}=\norm{Q_hu-u+u-P_hu}_{1-p,h}\ls h^p\norme{\rho}.}
+ 同时注意到$\norm{\rho}_{L^2(\Ga)}\ls\norm{\rho}_0^{1/2}\norm{\rho}_1^{1/2}\ls h^{1/2}\norme{\rho}$, 于是
+\eqn{k\norml{\rho}{\Ga}\norml{\ta_h}{\Ga}&\le\frac{k}{2}\norml{\rho}{\Ga}^2+\frac{k}{2}\norml{\ta_h}{\Ga}^2
+\le Ckh\norme{\rho}^2+\frac{k}{2}\norml{\ta_h}{\Ga}^2.}
+组合上述三个估计可得：
+\eq{\label{etaGa}\norml{\ta_h}{\Ga}^2\ls kh^p\norme{\rho}\norm{\ta_h}_{p-1,h}+h\norme{\rho}^2\ls k^2h^{2p-1}\norm{\ta_h}_{p-1,h}^2+h\norme{\rho}^2.}
+
+\emph{Step 2.} 这一步中我们用$\ta_h$的$L^2$范数来估计它的高阶离散范数。
+ 由$A_h$的定义可知, \eqref{ecipfemorth} 可被写成
+\eqn{(A_h\ta_h, v_h)=(k^2+1)(\ta_h,v_h)+(k^2+1)(Q_h\rho,v_h)-\i k\pd{\ta_h,v_h}-\i k\pd{\rho,v_h}\forall v_h\in V_h.}
+任给整数$1\le m\le p$, 在上式中取 $v_h=A_h^{m-1}\ta_h$ 可得
+\eqn{\norm{\ta_h}_{m,h}^2=&(k^2+1)\norm{\ta_h}_{m-1,h}^2+(k^2+1)(A_h^{(m-1)/2}Q_h\rho,A_h^{(m-1)/2}\ta_h)\\
+&-\i k\pd{\ta_h,A_h^{m-1}\ta_h}-\i k\pd{\rho,A_h^{m-1}\ta_h}.}
+由迹不等式和逆不等式可得：
+\eqn{\abs{\pd{\ta_h,A_h^{m-1}\ta_h}}&\ls \norml{\ta_h}{\Ga}\norml{A_h^{m-1}\ta_h}{\Ga}\ls\norml{\ta_h}{\Ga}h^{-1/2}\norm{\ta_h}_{2m-2,h}\\
+&\ls\norml{\ta_h}{\Ga}h^{-m+1/2}\norm{\ta_h}_{m-1,h}\\
+&\ls\big(kh^{p-m}\norm{\ta_h}_{p-1,h}+h^{1-m}\norme{\rho}\big)\norm{\ta_h}_{m-1,h}\\
+&\ls\big(k\norm{\ta_h}_{m-1,h}+h^{1-m}\norme{\rho}\big)\norm{\ta_h}_{m-1,h},\db\\
+\abs{\pd{\rho,A_h^{m-1}\ta_h}}&\ls \norml{\rho}{\Ga}\norml{A_h^{m-1}\ta_h}{\Ga}\ls h^{1/2}\norme{\rho}h^{-m+1/2}\norm{\ta_h}_{m-1,h} \\
+&\ls h^{1-m}\norme{\rho}\norm{\ta_h}_{m-1,h}.}
+因此有 $1\le m\le p$,
+\eqn{\norm{\ta_h}_{m,h}^2\ls& k^2\norm{\ta_h}_{m-1,h}^2+k^2\norm{Q_h\rho}_{m-1,h}\norm{\ta_h}_{m-1,h}\\
+&+\big(k\norm{\ta_h}_{m-1,h}+h^{1-m}\norme{\rho}\big)k\norm{\ta_h}_{m-1,h},}
+进一步由young不等式可得：
+\eqn{\norm{\ta_h}_{m,h}\ls k\norm{\ta_h}_{m-1,h}+k\norm{Q_h\rho}_{m-1,h}+h^{1-m}\norme{\rho}.}
+由于 $k\norm{Q_h\rho}_{m-1,h}\ls kh^{1-m}\norm{Q_h\rho}_{0,h}\ls kh^{2-m}\norme{\rho}\ls h^{1-m}\norme{\rho}$, 所以
+\eq{\norm{\ta_h}_{m,h}\ls k\norm{\ta_h}_{m-1,h}+h^{1-m}\norme{\rho},\quad 1\le m\le p.\label{estep2a}}
+递归的使用上述不等式可得任意整数 $0\le m\le p$,有
+\eq{\label{estep2b}
+\norm{\ta_h}_{m,h}&\ls k^{m}\norm{\ta_h}_0+\sum_{n=0}^{m-1}k^nh^{1-m+n}\norme{\rho} \ls k^m\norm{\ta_h}_0+h^{1-m}\norme{\rho}.}
+
+\emph{Step 3.} 这一步中我们用$\ta_h$的$(p-1)$离散范数来估计它的 $L^2$范数。考虑对偶问题：
+\begin{align}
+-\triangle w-k^2w&=\ta_h \ \ \ \ \rm{in} \ \ \Om, \label{auxii1}\\
+\frac{\partial w}{\partial n}-\i kw&=0 \ \ \ \ \ \rm{on} \ \ \Ga.
+\end{align}
+ 用 $e_h=\rho+\ta_h$ 和上式做内积运算, 令 $v_h=P_hw$可得：
+\eqn{&(\rho+\ta_h,\ta_h)=a(e_h,w)-k^2(e_h,w)+\i k\langle e_h,w\rangle\db\\
+&=a(e_h,w-P_hw)+\i k\pd{e_h,w-P_hw}-k^2(e_h,w-P_hw)\db\\
+&=a(e_h,w-P_hw)+(e_h,w-P_hw)+\i k\pd{e_h,w-P_hw}-(k^2+1)(e_h,w-P_hw)\db\\
+&=a(\rho, w-P_hw)+(\rho,w-P_hw)-(k^2+1)(\rho+\ta_h,w-P_hw)+\i k\pd{\rho+\ta_h,w-P_hw}.
+}
+于是，
+\begin{align}\label{eduall2}
+\norm{\ta_h}_0^2&=a(\rho, w-P_hw)-k^2(\rho,w-P_hw)+\i k\pd{\rho,w-P_hw}\\
+&\quad-(k^2+1)(\ta_h,w-P_hw)+\i k\pd{\ta_h,w-P_hw}-(\rho,\ta_h)\nn\\
+&\le \norme{\rho}\norme{w-P_hw}+(k^2+1)\abs{(\ta_h,w-P_hw)}\nn\\
+&\quad+k\abs{\pd{\ta_h,w-P_hw}}+\norm{\rho}_0\norm{\ta_h}_0,\nn
+\end{align}
+用之前同样的方法，我们可以证明：
+\begin{align}
+ \norme{w-P_hw}& \ls \big(h+(kh)^p\big)\norm{\ta_h}_0,\qquad\|w-P_hw\|_0\ls h\big(h+(kh)^p\big)\norm{\ta_h}_0.\label{ewh-err2}
+\end{align}
+于是，
+\begin{align}
+\abs{(\ta_h,w-P_hw)}&=\abs{(\ta_h,Q_hw-P_hw)}\label{ewh-err3}\\
+&\le \norm{\ta_h}_{p-1,h}\norm{Q_hw-w+w-P_hw}_{1-p,h}\nn\\
+&\ls \norm{\ta_h}_{p-1,h} h^p \big(h+(kh)^p\big)\norm{\ta_h}_0.\nn
+\end{align}
+\eq{ \label{ewh-err4}\abs{\pd{\ta_h,w-P_hw}}&\ls
+\norml{\ta_h}{\Ga}\norml{w-P_hw}{\Ga}\\
+&\ls\big(kh^{p-1/2}\norm{\ta_h}_{p-1,h}+h^{1/2}\norme{\rho}\big)h^{1/2}\big(h+(kh)^p\big)\norm{\ta_h}_0\nn\\
+&\ls\big(kh^{p}\norm{\ta_h}_{p-1,h}+h\norme{\rho}\big)\big(h+(kh)^p\big)\norm{\ta_h}_0.\nn
+}
+最后把\eqref{erho}和\eqref{ewh-err2}--\eqref{ewh-err4}代入\eqref{eduall2}我们可得
+\eq{\norm{\ta_h}_0\ls \big(h+(kh)^p\big)\norme{\rho}+ h^p \big(h+(kh)^p\big)k^2 \norm{\ta_h}_{p-1,h}.\label{estep1}
+}
+
+\emph{Step 4.} 组合\eqref{estep1}和\eqref{estep2b}，并令 $m=p-1$, 有
+\eqn{\norm{\ta_h}_0&\ls \big(h+(kh)^p\big)\norme{\rho}+h^p \big(h+(kh)^p\big)\big(k^{p+1}\norm{\ta_h}_0+k^2h^{2-p}\norme{\rho}\big)\\
+&\ls \big(h+(kh)^p\big)\norme{\rho}+\big((kh)^{p+1}+k(kh)^{2p}\big)\norm{\ta_h}_0.}
+因此存在常数 $C_0$ 使得如果 $k(kh)^{2p}\le C_0$, 有
+\eqn{\norm{\ta_h}_0\ls \big(h+(kh)^p\big)\norme{\rho}.}
+进一步有
+\eqn{\norm{\ta_h}_1\ls k\norm{\ta_h}_0+\norme{\rho}\ls \big(1+k(kh)^p\big)\norme{\rho}.}
+\end{proof}
+
+由定理\ref{pre-err}和上面的引理,我们有如下的推论：
+\begin{corollary}\label{cor-1g}
+设$u$ 和$u_h$分别是\eqref{new.1}--\eqref{new.2}和\eqref{cip-fem}的解。假设 $C_{p-1,f,g}\ls 1$。 于是存在和$h, k$无关的 $C_0, C_1, C_2$ 使得如果 $k(kh)^{2p}\le C_0$, 则有如下的估计成立：
+\begin{align}\label{ecor-1g-a}
+\norm{u-u_h}_1&\le C_1(kh)^p+C_2k(kh)^{2p},\\
+k\|u-u_h\|_0&\le C_1(kh)^{p+1}+C_2k(kh)^{2p}.\label{ecor-1g-b}
+\end{align}
+\end{corollary}
+
+\rem 6.9.\
+%\label{rthm-err-1}
+{\rm (a)} We have proved that the new CIP-FEM with real penalty parameters satisfies the same preasymptotic error estimates as those of the FEM (cf. Theorem~\ref{thm-err-1} and Corollary~\ref{cor-1}). The mesh condition $k(kh)^{2p}\le C_0$ improves the previous results in \cite{w,zw}, which require that $k(kh)^{p+1}\le C_0$ (for fixed $p>1$.) For preasymptotic analysis of the CIP-FEM with complex penalty parameters, we refer to \cite{w,zw}.
+
+
+ 由引理\ref{lapprox1g},~\ref{error2g}和定理\ref{pre-err}，我们可以得到如下的CIP-FEM 的稳定性估计。
+ \begin{corollary}\label{cor-3g}
+假设问题\eqref{new.1}--\eqref{new.2}的解 $u\in H^2(\Om)$. 则在定理\ref{pre-err}的条件下我们有如下估计：
+\begin{align*}
+\norm{\na u_h}_0+k\norm{u_h}_0&\lesssim C_{f,g},
+\end{align*}
+即 CIP-FEM 是适定的。
+\end{corollary}
+
+\section{数值实验}
+
+\newpage
+
+\section{总结与展望}
+
+
+\end{document}
