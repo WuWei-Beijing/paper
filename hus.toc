@@ -1,0 +1,15 @@
+\contentsline {section}{\bf 中文摘要 }{1}
+\contentsline {section}{\bf 英文摘要 }{2}
+\contentsline {section}{带有一阶边界项的Helmholtz方程的稳定性和误差估计}{3}
+\contentsline {section}{\numberline {1}引论}{3}
+\contentsline {section}{\numberline {2}公式和符号}{3}
+\contentsline {section}{\numberline {3}引理}{5}
+\contentsline {section}{\numberline {4}对高波数散射问题中的不同边界条件的误差分析}{8}
+\contentsline {section}{\numberline {5}预渐进误差分析}{10}
+\contentsline {subsection}{\numberline {5.1}一些引理}{10}
+\contentsline {subsection}{\numberline {5.2}$L^2$投影算子、椭圆投影算子和离散Sobolev范数}{11}
+\contentsline {subsection}{\numberline {5.3}预渐进误差分析}{12}
+\contentsline {section}{\numberline {6}数值实验}{17}
+\contentsline {section}{\numberline {7}总结与展望}{17}
+\contentsline {section}{\bf 参考文献}{18}
+\contentsline {section}{\bf 致谢 }{19}
