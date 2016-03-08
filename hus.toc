@@ -1,0 +1,23 @@
+\contentsline {section}{\bf 中文摘要 }{1}
+\contentsline {section}{\bf 英文摘要 }{2}
+\contentsline {section}{人工神经网络的范畴解释及其应用}{3}
+\contentsline {section}{\numberline {1}人工神经网络}{3}
+\contentsline {subsection}{\numberline {1.1}神经网络与人工神经网络}{3}
+\contentsline {subsection}{\numberline {1.2}几种典型的神经网络}{4}
+\contentsline {subsubsection}{\numberline {1.2.1}自适应共振网络-ART}{4}
+\contentsline {subsubsection}{\numberline {1.2.2}多层感知机-MLP}{5}
+\contentsline {subsubsection}{\numberline {1.2.3}卷积神经网络-CNN}{6}
+\contentsline {subsection}{\numberline {1.3}人工神经网络的可靠性解释}{7}
+\contentsline {section}{\numberline {2}人工神经网络中范畴的构建}{8}
+\contentsline {subsection}{\numberline {2.1}知识范畴$\bm {Know}$}{8}
+\contentsline {section}{\numberline {3}公式和符号}{9}
+\contentsline {section}{\numberline {4}引理}{11}
+\contentsline {section}{\numberline {5}对高波数散射问题中的不同边界条件的误差分析}{14}
+\contentsline {section}{\numberline {6}预渐进误差分析}{16}
+\contentsline {subsection}{\numberline {6.1}一些引理}{16}
+\contentsline {subsection}{\numberline {6.2}$L^2$投影算子、椭圆投影算子和离散Sobolev范数}{17}
+\contentsline {subsection}{\numberline {6.3}预渐进误差分析}{18}
+\contentsline {section}{\numberline {7}数值实验}{23}
+\contentsline {section}{\numberline {8}总结与展望}{23}
+\contentsline {section}{\bf 参考文献}{24}
+\contentsline {section}{\bf 致谢 }{25}
