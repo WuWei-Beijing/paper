@@ -5,6 +5,8 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{bm}
+\DeclareMathOperator*{\argmax}{argmax}
 
 \vfuzz2pt
 \hfuzz2pt
@@ -160,7 +162,7 @@
 
 \>{\zihao{3} \kaishu 专 \hskip 11.5mm  业:} \> \underline{\bf\quad\quad\quad\quad\quad\,\,\,\qquad 计算数学\,\,\,\,\quad\quad\quad\quad\quad}\\
 
-\>{\zihao{3} \kaishu 研究方向: }\> \underline{\bf\quad\quad\quad\quad\quad\quad\quad\,\,\,范畴理论及其应用\,\,\,\quad\quad\quad\quad\quad\quad\quad} \\
+\>{\zihao{3} \kaishu 研究方向: }\> \underline{\bf\quad\quad\quad\quad\quad\quad\quad\,\,\, 范畴理论及其应用\,\,\,\quad\quad\quad\quad\quad\quad\quad} \\
 
 \>{\zihao{3} \kaishu 指导教师: }\> \underline{{\bf \quad\quad\quad\quad\quad\quad\quad \,\,丁南庆\,教授\quad\,\,\quad\quad\quad\quad\quad\,}} \\
 \end{tabbing}
@@ -292,6 +294,7 @@ In this thesis, we apply category theory to explain how can neural networks stor
 \[sigma(x)=\frac{1}{1+e^{-x}}\]
 这样的一个结构叫做感知机，一个人工神经网络通常由若干的感知机构成不同的复杂结构。
 \subsection{几种典型的神经网络}
+人工神经网络的根据不同的任务目标所设计的网络结构种类繁多，下面只介绍本文所需要的三种典型人工神经网络
 \subsubsection{自适应共振网络-ART}
 \cite{apt}是人脑的自适应共振理论的基础工作，它揭示了人脑神经元的一种简化的组织形式。这种神经元模型具有长期记忆和新颖物体学习的平衡性，并且能够
 在线更新知识体系。ART1是自适应共振理论对应的最简单的网络结构，如图\ref{art1-sample}所示
@@ -302,8 +305,117 @@ In this thesis, we apply category theory to explain how can neural networks stor
     \label{art1-sample}
 \end{figure}
 
+$F_1$称为输入层，$F_2$称为隐藏层。连接$x_i$和$y_j$的上行和下行权重分别为$z_{ij}^{bu}$和$z_{ij}^{td}$，它们主要负责存储中期记忆,不同之处在于$z_{ij}^{bu}$取[0,1] 之间的实值而$z_{ij}^{td}$只在0和1两个值中取。当$F_1$ 层的0、1二值激活为$I_i(i=1,2,...,N)$ 时，$F_2$ 层的预激活量为\[T_j=\sum_{i=1}^{N}z_{ij}^{bu}I_i, j=1,2,...M\]
+$F_2$层的激活向量为
+\[\begin{cases}
+y_J=1 \qquad if \qquad T_j=max_j{T_j}\\
+y_{j\neq J}=0
+\end{cases}\]
+$F_2$层对$F_1$层的回馈量为
+\[V_i=\sum_{j=1}^{M}z_{ji}^{td}y_j=z_{Ji}^{td},\qquad i=1,2,...N\]
+门限系统用于控制系统的重启，它首先计算$F_1$层的匹配向量
+\[x_i=V_iI_i \qquad or \qquad X=V \bigcap I=z_{J}^{td} \bigcap I\]
+如果$\rho |I| \le |I \bigcap z_{J}^{td}|$则从$y_j(j=1,2,...,M)$中重新选择合适的代表元。在上式中$\rho$是预先确定的[0,1]之间的阈值，范数取$l_1$ 范数。整个过程对应的流程图如下图\ref{art1-flow}，其中不加解释地包括了参数$z_{J}^{td}$和$z_{J}^{bu}$的更新步骤。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=80mm,height=80mm]{art1-flow.eps}
+    \caption{}
+    \label{art1-flow}
+\end{figure}
+ART1网络常用于01序列化特征的聚类。其扩展的网络Fuzzy ART1可用于分类的任务。
+
 \subsubsection{多层感知机-MLP}
+多层感知机是感知机的多层复合，以下图\ref{mlp}的3-4-3 MLP为例，其中$x_i\,,y_j\,,z_k$分别是三层的节点，$w_{ij}^{(1)}\,,w_{ij}^{(2)}\,,b^{(1)}\,,b^{(2)}$ 分别是第一二层和第二三层之间的权重参数。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=80mm,height=40mm]{mlp.eps}
+    \caption{}
+    \label{mlp}
+\end{figure}
+其前向传播过程可表示为
+\[\begin{cases}
+y_j=\sigma (\sum_{i=1}^{3}w_{ij}^{(1)}x_i+b^{(1)}) \qquad j=1,2,3,4\\
+z_k=\sigma (\sum_{j=1}^{2}w_{ij}^{(2)}y_j+b^{(2)}) \qquad k=1,2,3
+\end{cases}\]
+其中的$\sigma$为sigmoid函数。其参数的训练过程通常采用BP 算法。MLP网络的优势在于网络收敛快速并且可以很容易拓展为深度的网络，其缺点是
+网络的参数过多很容易造成数据的过拟合。
+
 \subsubsection{卷积神经网络-CNN}
+在机器视觉领域，一个应用更广泛的网络结构称为卷积神经网络。它由一些卷积层和降采样层组合而成。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=80mm,height=40mm]{lenet.eps}
+    \caption{}
+    \label{lenet}
+\end{figure}
+
+卷积（Convolution）层由每一层的特征图和带参数的卷积核做二维卷积构成。记其中的特征图是w $\times$ h尺寸的$X_{w,h}$，卷积核是m $\times$ n尺寸的$K_{m,n}$。$X(w_1:w_2,h_1:h_2)$是$X_{w,h}$的子矩阵当$1 \le w_1 \le w_2 \le w$ 且$1 \le h_1 \le h_2 \le h$。当$X_{m,n}$是m $\times$ n的特征图时二维卷积可表示为
+\[X_{m,n} \ast K_{m,n} = \sum_{i=1}^{m}\sum_{j=1}^n x_{ij}k_{m-i,n-j} \]
+更一般的情况下当$X_{w,h}$是w $\times$ h的特征图时二维卷积可表示为
+\[X_{w,h} \ast K_{m,n} =
+\left(
+  \begin{array}{ccc}
+    X(1:m,1:n)     \ast K &...& X(w-m+1:m,1:n)     \ast K\\
+    %X(1:m,h-n:h-1) \ast K & X(2:m+1,h-n:h-1) \ast K & X(w-m+1:m,h-n:h-1) \ast K\\
+    ...                   &...& ...       \\
+    X(1:m,h-n+1:h) \ast K &...& X(w-m+1:m,h-n+1:h) \ast K
+  \end{array}
+\right)
+\]
+降采样（pooling）层在特征图的某一个子矩阵中取平均值或最大值。
+
+一个典型的CNN网络是LeNet5，其网络结构如下图\ref{lenet} 所示。可以看出CNN 实际上是MLP网络的一种特例，区别在于：1、CNN把MLP中每一层一维的特征向量重排成特征图。2、 和MLP 中每一层的每一个节点都和相邻层的每个节点存在连接不同，CNN中每层的节点只和相邻层中某个领域中的节点存在连接。CNN网络的结构决定了它对图像的处理具有先天的优势，事实上在多个图像分类检测任务中CNN 网络已经超过了人眼的正确率。
+
+\subsection{人工神经网络的可靠性解释}
+长久以来人工神经网络都缺乏一个很好的理论解释，它被看做“黑盒”分类器或特征提取工具在工程领域得到了广泛的应用，却缺乏一个好的理论解释。一种普遍的观点是从数值计算的角度考虑。设A 是一个人工神经网络的结构，w 是其中的一些权重参数，$\theta$ 是另外一些超参数，则神经网络就是一个由$(A,w,\theta)$构成的高度非线性的系统，其中的参数个数巨大，在定义了损失函数$L(A,w,\theta)$，可以将神经网络的训练问题归结于固定网络结构A下的一个非凸优化问题
+\begin{displaymath}C = \arg\max_{w,\theta}(L(A,w,theta))
+\end{displaymath}
+通常使用最速下降等一阶算法求解，这个非凸优化如何得到一个可靠的非局部最优解的问题解决得益于以下两个方面：1、近几年GPU芯片性能的飞跃和计算机存储数据的累积带来数据量的提升，使得最速下降法求解时可以采用一个非常小的步长。2、 一些由物理学启发的学习率的设定技巧带来了一定的收敛性的可靠结果。
+
+从数值计算的角度，可以说解决了固定网络结构A下的人工神经网络的训练问题。但是，仍然存在几个重要的问题：1、人工神经网络为什么会有超越一般算法的效果，能否从数学的角度解释它的知识存储和传递。2、如何更好地设计神经网络以达到更好地性能，能否从数学的角度给予解决方案。
+
+在这里我们将利用范畴论的工具来将知识体系范畴和神经网络范畴统一起来，给出人工神经网络一个范畴论的解释。另外，将从范畴论的角度指导人工神经网络的改造。最后，通过几个matlab的仿真实验来证明范畴解释方法的可靠性以及改进后的神经网络的优越性。M.J.Healy在\cite{h1}\cite{h2}中做了很多相关的工作，这里会在他的基础上：1、完善人工神经网络范畴解释构造的过程和一些省去的证明。2、增加一些新的理论内容。3、对CNN和MLP进行范畴论解释下的对比分析。4、 增加几个有说服力的仿真实验。
+
+\section{人工神经网络中范畴的构建}
+在这个部分，首先会构造出知识范畴$\bm{Know}$和神经网络范畴$\bm{Neur}$。 随后为了解释神经网络对知识的存储的表达能力，定义了这两个范畴之间的函子。最后借用范畴中余极限的概念给出人工神经网络层次结构的理论基础。
+\subsection{知识范畴$\bm{Know}$}
+\begin{definition}
+一个符号系统由下面几部分组成：
+
+1.\quad 一个符号的集合S
+
+2.\quad 运算的三元组$O=<C,F,P>$，其中
+
+  C是常数符号的集合
+
+  F是函数的集合
+
+  P是预测符号的集合（一般为布尔值）
+\end{definition}
+\begin{definition}
+一个符号系统映射从一个符号系统映到另一个符号系统，把符号集合映到符号集合，把运算映到运算。
+\end{definition}
+\begin{definition}
+以符号系统为对象，以符号系统映射作为态射构成符号系统范畴$\bm{Sign}$，其中态射的合成是两个映射的合成。
+\end{definition}
+\begin{definition}
+一个声明由以下两部分组成：
+
+1.\quad 一个符号系统$Sig=<S,O>$
+
+2.\quad 一个符号系统$Sig$上的公理集合$Ax$
+
+\end{definition}
+\begin{definition}
+给定两个声明$<Sig1,Ax1>$和$<Sig2,Ax2>$，则两个符号系统$Sig1$和$Sig2$之间的映射称为声明映射当且仅当：
+
+\[\forall a \in Ax1,(Ax2 \vdash M(a))\]
+
+即每一个$Ax1$中的公理，通过M的翻译之后都可以证明服从$Ax2$中的公理，可以看出$Ax2$是更强的公理。
+\end{definition}
+\begin{definition}
+以声明为对象，以声明映射作为态射构成知识范畴$\bm{Know}$，其中态射的合成是两个声明映射的合成。
+\end{definition}
 \begin{align}
 -\De u - k^2 u &=f  \qquad\mbox{in  } \Om,\label{old.1}\\
 \frac{\pa u}{\pa n} -\i k u &=g \qquad\mbox{on } \Ga,\label{old.2}
@@ -320,13 +432,13 @@ In this thesis, we apply category theory to explain how can neural networks stor
 
 \section{公式和符号}
 $\Om $为圆点在(0, 0)半径为R的圆。 $\Ga$ 为$\Om$ 的边界，即$\pa \Om$。 $i := \sqrt{-1}$ 。$ k $为波数。
-通篇中， C用来标记与$h, k, f, g$无关的正常数。我们用记号$ A\lesssim B $和 $B \lesssim A $ 来分别表
+通篇中， C用来标记与$h, k, f, g$无关的正常数。我们用记号$ A\lesssim B $ 和 $B \lesssim A $ 来分别表
 示$A \le CB$ 和$B \ge CA$. $A \eqsim B $ 是$ A\lesssim B $ 和 $ B \lesssim A $的缩写. 因为考虑的是高波数问
 题，所以假设$ k \gg 1$，且是个定值。 $p = O(1)$ 也是个定值。
 
 $(\cdot,\cdot)_{\Om}$ 表示$\Om$上的$L^2$ 内积。$\pd{ \cdot,\cdot}:=\pd{ \cdot,\cdot}_{\p\Om}$表示$\Ga$ 上的$\L^2$内积。我们用如下缩写：$\norm{\cdot}_j:=\norm{\cdot}_{H^j(\Om)}$ 和 $\abs{\cdot}_j:=\abs{\cdot}_{H^j(\Om)}$.
 
-$V_h:=\set{v_h \in H^1(\Omega):\ v_h\mid_K\circ F_K \in \mathcal P_p(\widehat K)\ \forall K \in \T_h}$, \,\, 即$V_h$是$\Om$上的$p$阶分片多项式空间，其中，$\T_h$是$\Om$的一致三角剖分，$h=\max_{K\in\T_h}h_K$. $\widehat K$是三角形K的参考单元， $F_K$是从$\widehat K$到K的映射，$\mathcal P_p(\widehat K)$是$\widehat K$上的所有次数不超过p的多项式的集合。
+$V_h:=\set{v_h \in H^1(\Omega):\ v_h\mid_K\circ F_K \in \mathcal P_p(\widehat K)\ \forall K \in \T_h}$, \,\, 即$V_h$是$\Om$上的$p$阶分片多项式空间，其中，$\T_h$ 是$\Om$的一致三角剖分，$h=\max_{K\in\T_h}h_K$. $\widehat K$是三角形K的参考单元， $F_K$是从$\widehat K$到K的映射，$\mathcal P_p(\widehat K)$是$\widehat K$上的所有次数不超过p的多项式的集合。
 
 $\E_h^I$是$T_h$的所有的内部边（面）的集合。对于每一个$e=\p K\cap \p K^\pr\in\E_h^I$,令$n_e$为指
 向$e$的单位法向量,定义$v$在$e$上的跳量为$\jm{v}|_{e}:= v|_{K^\pr}-v|_{K}.$
@@ -739,7 +851,7 @@ a_{\ga}(\ta_h,v_h)-k^2(\ta_h,v_h)-\i k\pd{\ta_h,v_h}+\frac{1}{2R}\pd{\ta_h,v_h}=
 &\ls\big(kh^{p-1/2}\norm{\ta_h}_{p-1,h}+h^{1/2}\inf_{z_h \in V_h}\mathbb{E}_\ga(u,z_h)\big)h^{1/2}\big(h+(kh)^p\big)\norm{\ta_h}_0\nn\\
 &\ls\big(kh^{p}\norm{\ta_h}_{p-1,h}+h\inf_{z_h \in V_h}\mathbb{E}_\ga(u,z_h)\big)\big(h+(kh)^p\big)\norm{\ta_h}_0. \label{s4}
 \end{align}
- 最后把\eqref{s0}和\eqref{s2}--\eqref{s4}代入\eqref{s1}我们可得
+ 最后把\eqref{s0}和\eqref{s2}--\eqref{s4}代入\eqref{s1} 我们可得
 \eq{\norm{\ta_h}_0\ls \big(h+(kh)^p\big)\inf_{z_h \in V_h}\mathbb{E}_\ga(u,z_h)+ h^p \big(h+(kh)^p\big)k^2 \norm{\ta_h}_{p-1,h}.\label{estep1}
 }
 
@@ -794,7 +906,14 @@ k\|u-u_h\|_0&\le C_1(kh)^{p+1}+C_2k(kh)^{2p}.\label{ecor-1-b}
 
 
 \begin{thebibliography}{99}
-\bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and 
+\bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and
+recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
+
+\bibitem{h1} M.J.Healy,Thomas P.Caudell, {\em A categorical semantic analysis of ART architectures}.IJCNN, 2011.
+
+\bibitem{h2} Modification of the ART-1 architecture based on category theoretic design principles.IJCNN,2005.
+
+\bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and
 recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
 
 \bibitem{dy} Yu Du and Haijun Wu, {\em Preasymptotic error analysis of higher order FEM and CIP-FEM
