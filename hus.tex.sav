@@ -50,8 +50,8 @@
 \renewcommand{\theproof}{}
 \newtheorem{example}{例}[section]
 \renewcommand{\theexample}{\arabic{section}.\arabic{example}}
-\newtheorem{hype}{例}[section]
-\renewcommand{\theexample}{\arabic{section}.\arabic{example}}
+\newtheorem{hyper}{假设}[section]
+\renewcommand{\thehyper}{\arabic{section}.\arabic{hyper}}
 
 %%%%%%%%%%%%%%%%%%From DU YU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\rem}{{\it Remark }}
@@ -700,6 +700,8 @@ Know $K_5$
 态射$l_1:K_1 \to K_5,l_2:K_2 \to K_5,l_3:K_3 \to K_5, l_4:K4 \to K_5$分别是分量对应的嵌入映射。
 \end{example}
 
+这表示余极限是由已知不共线的三点构成的三角形。
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=76mm,height=39mm]{ex_colimit.eps}
@@ -708,15 +710,52 @@ Know $K_5$
 \end{figure}
 
 有了如上的准备工作，下面我们可以具体研究神经网络知识存储的方式：1、神经网络为何组织成层状结构。2、层状结构中后面层中节点与前面层中节点所代表的知识对象有什么样的关系。下面以含有跨层连接的2-2-1MLP网络为例，为了说明的方便需要几点假设：
+\begin{hyper}
 
 1、左图是神经网络范畴$Neur$中的交换图。
 
-2、第n+1层的神经元节点$(p_5,\eta_5)$是左图中第n层及第n-1层的神经元节点$(p_i,\eta_i)$（i=1,2,3,4)的余极限。
+2、第n+1层的神经元节点$(p_5,\eta_5)$是左图中第n层及第n-1层的神经元节点$(p_i,\eta_i)$的余极限。
 
 3、从神经网络范畴$Neur$到知识范畴$Know$的函子M是保持余极限的函子。
+\end{hyper}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{hyper.eps}
+    \caption{}
+    \label{hyper}
+\end{figure}
+\begin{remark}
+提出一系列假设的原因是给出神经网络设计的一种可能的隐藏原理，试图通过这些假设推出一系列结论并且通过实验来证明这些结论确实存在，那么被证明的推论越多，神经网络的知识表示越可能是假设中的表达。其中第二点假设是最核心的，即神经网络通过计算余极限实现知识的前向传播。
+\end{remark}
+假设由第n-1层和第n层构成图$\Delta$，并且有
+\[\bar{\Gamma}_{25}= \bar{\Gamma}_{24} \circ \bar{\Gamma}_{45}=\bar{\Gamma}_{23} \circ \bar{\Gamma}_{35}\]
+\[\bar{\Gamma}_{15}= \bar{\Gamma}_{14} \circ \bar{\Gamma}_{45}=\bar{\Gamma}_{13} \circ \bar{\Gamma}_{35}\]
+其中$\bar{\Gamma}_{ij}$是信道集合的等价类。$((p_5,\eta_5),\bar{\Gamma}_{35},\bar{\Gamma}_{15},\bar{\Gamma}_{25},\bar{\Gamma}_{45})$是图$\Delta$的余极限。
+$K_i=M((p_i,\eta_i))$，设$K_1,K_2,K_3,K_4$构成图$\Lambda$。由于M保持余极限，故$(K_5,t_{35},t_{15},t_{25},t_{45})$是图$\Lambda$的余极限。由于知识范畴中的态射是对应sort 和axiom的嵌入，则余极限表示各个知识对象的“组合”（如例2.2所示）。在下一节会通过可视化的方法给出每个神经元所存储的像素信息，并且通过实验验证第n+1层的隐藏层的像素特征信息确实是第n层和第n-1层像素信息的“组合”，这样从侧面证明了$(K_5,t_{35},t_{15},t_{25},t_{45})$是图$\Lambda$的余极限，从而说明了神经网络结构存储知识的一种可能性。
 
 \section{利用范畴理论改进人工神经网络}
 \subsection{网络结构的改进}
+\subsubsection{改进的FuzzyART网络}
+ART1网络广泛地作为二值化向量的聚类网络。在\cite{h2}中Healy改进了ART1网络的结构使得达到了更好地聚类效果。FuzzyART作为ART1网络的一种改进适用于将实值的向量进行聚类，我们首先简单的介绍一个ART1的变形即SIN，由于\cite{h3}证明了在区间的分辨率下SIN和FuzzyART1是等价的，所以我们只需要改进SIN就可以在一个低分辨率的情况下改进FuzzyART1，并且理论上令区间的长度趋于0便可以得到FuzzyART1的改进。
+\begin{definition}(SIN)
+设区间长为$\delta>0$，区间节点个数为2N（其中N个为补节点），即
+\[I_i=(i\delta, +\infty) \qquad i=0,1,...,N-1\]
+\[I_i^C=(-\infty,i\delta) \qquad i=N,N+1,...,2N-1\]
+则对任意的实值$v \in (-\infty, +\infty)$存在最大的p和最小的q，使得$p\delta < v \le q\delta$，故有映射$\pi: v \to B_{N,\delta}=(b_0,b_1,...,b_{2N-1})$，其中
+\[
+b_i = 
+\begin{cases}
+\bm{1}\{v \in I_i\} \qquad i \in 0,1,...,N-1\\
+\bm{1}\{v \in I_i^C\} \qquad i \in N,N+1,...,2N-1
+\end{cases}
+\]
+$\bm{1}\{\cdot\}$是布尔函数当条件成立时为1。综上，$\pi$将一个实值映为一个二值的序列。
+\end{definition}
+
+\begin{example}
+当$\delta=1,N=4$时，
+\end{example}
+
 \subsection{多感知器协同工作}
 
 \section{总结与展望}
@@ -735,6 +774,7 @@ recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
 \bibitem{h1} M.J.Healy,Thomas P.Caudell, {\em A categorical semantic analysis of ART architectures}.IJCNN, 2011.
 
 \bibitem{h2} Modification of the ART-1 architecture based on category theoretic design principles.IJCNN,2005.
+
 
 \bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and
 recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.

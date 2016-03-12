@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{graphicx}
 \DeclareMathOperator*{\argmax}{argmax}
 
 \vfuzz2pt
@@ -20,8 +21,6 @@
 
 
 \usepackage{threeparttable}
-
-\usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{tocloft}
 \let\CCTCJKfonts=1
@@ -52,6 +51,8 @@
 \renewcommand{\theexample}{\arabic{section}.\arabic{example}}
 \newtheorem{hyper}{假设}[section]
 \renewcommand{\thehyper}{\arabic{section}.\arabic{hyper}}
+\newtheorem{experiment}{实验}[section]
+\renewcommand{\thehyper}{\arabic{section}.\arabic{experiment}}
 
 %%%%%%%%%%%%%%%%%%From DU YU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\rem}{{\it Remark }}
@@ -735,8 +736,101 @@ $K_i=M((p_i,\eta_i))$，设$K_1,K_2,K_3,K_4$构成图$\Lambda$。由于M保持余极限，故$(
 
 \section{利用范畴理论改进人工神经网络}
 \subsection{网络结构的改进}
-\subsubsection{改进的ART1网络}
+\subsubsection{改进的FuzzyART网络}
+ART1网络广泛地作为二值化向量的聚类网络。在\cite{h2}中Healy改进了ART1网络的结构使得达到了更好地聚类效果。FuzzyART作为ART1网络的一种改进适用于将实值的向量进行聚类，我们首先简单的介绍一个ART1的变形即SIN，由于\cite{h3}证明了在区间的分辨率下SIN和FuzzyART1是等价的，所以我们只需要改进SIN就可以在一个低分辨率的情况下改进FuzzyART1，并且理论上令区间的长度趋于0便可以得到FuzzyART1的改进。
+\begin{definition}(SIN)
+设区间长为$\delta>0$，区间节点个数为2N（其中N个为补节点），即
+\[I_i=(i\delta, +\infty) \qquad i=0,1,...,N-1\]
+\[I_i^C=(-\infty,i\delta) \qquad i=N,N+1,...,2N-1\]
+则对任意的实值$v \in (-\infty, +\infty)$存在最大的p和最小的q，使得$p\delta < v \le q\delta$，故有映射$\pi: v \to B_{N,\delta}=(b_0,b_1,...,b_{2N-1})$，其中
+\[
+b_i = 
+\begin{cases}
+\bm{1}\{v \in I_i\} \qquad i \in 0,1,...,N-1\\
+\bm{1}\{v \in I_i^C\} \qquad i \in N,N+1,...,2N-1
+\end{cases}
+\]
+$\bm{1}\{\cdot\}$是布尔函数当条件成立时为1。综上，$\pi$将一个实值映为一个二值的序列。
+将ART1的输入层之前加上一个输入转换层$\pi$，则构成下图所示的SIN网络。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{SIN.eps}
+    \caption{}
+    \label{SIN-sample}
+\end{figure}
+\end{definition}
 
+\begin{example}
+当$\delta=1,N=4$时，取$v_1=1.2，v_2=2.8$则二值化后的序列为\[B=(1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,1)\]
+\end{example}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{interval.eps}
+    \caption{}
+    \label{interval-sample}
+\end{figure}
+\begin{remark}
+由以上的定义，固定N和$\delta$，当$i<N$时，第i个节点(从0开始计数）代表知识范畴$Know$内的对象
+
+Know UP\_i
+
+\quad sorts float
+ 
+\quad const v:float
+
+\quad Axiom  :$v > i\delta$
+
+当$i \ge N$时，设j=i-N，则第i个节点代表知识范畴$Know$内的对象
+
+Know BELOW\_j
+
+\quad sorts float
+
+\quad const v:float
+
+\quad Axiom  :$v \le j\delta$
+
+另外原数据代表了知识范畴$Know$内的对象
+
+Know VALUE
+
+\quad sorts float
+
+\quad const v:float
+
+故知识范畴$Know$内的对象VALUE、UP\_i和BELOW\_j（$i \le j$）构成的图的余极限为
+
+Know INTERVAL\_i\_j
+
+\quad sorts float
+
+\quad const v:float
+
+\quad Axiom  :$i\delta< v \le j\delta$
+
+加上对应的态射$(g1,g2,g3)$，如下面的交换图\ref{interval-sample}所示。
+\end{remark}
+由上一节的讨论知存在从神经网络范畴$\bm{Neur}$到知识范畴$\bm{Know}$的函子M，由我们的神经网络范畴解释的假设函子M是保持余极限的函子，则在神经网络范畴中出现相应的余极限的结构有助于知识的表现，下面就首先提出改进的SIN，即CoSIN，这样当区间长度趋于零时就得到FuzzyART的改进网络CoFuzzyART。
+
+\begin{definition}
+以二维实值坐标序列为输入的网络为例，的设$\pi: F_0^{-} \to F_0^{+}$是从实值到二值序列的映射如上所示。记$F_0^{+}$的节点分别为$(b_0,b_1,...,b_{2N-1},c_0,c_1,...,c_{2N-1})$，则添加一个余极限层$F_1$包含节点$(t_0,t_1,...,t_{N-2},s_0,s_1,...,s{N-2})$其中
+$t_i$和$b_i$以及$b_{N+i+1}$连接，$s_i$和$c_i$以及$c_{N+i+1}$连接。$F_1$和$F_2$层输出层之间的连接仍是SIN中的全连接。完整的网络结构如下图所示。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{CoSIN.eps}
+    \caption{}
+    \label{CoSIN-sample}
+\end{figure}
+\end{definition}
+
+\begin{experiment}
+考虑二维点的聚类任务对比SIN和CoSIN的性能，设四个已知的区域为$R_1:[0.2,0.4] \times [0.2,0.4]$，$R_2:[0.6,0.8] \times [0.2,0.4]$，
+$R_3:[0.6,0.8] \times [0.6,0.8]$，$R_1:[0.2,0.4] \times [0.6,0.8]$。
+实验步骤是：首先在四个区域的范围内各随机生成100个点，用这四百个点放入SIN和CoSIN训练聚类器，最后比较同一个$\rho$值下聚类后正确分类的个数。
+称一个分类是正确分类指：存在一个j使得这个分类完全包含$R_j$内的点且只包含$R_j$内的点。
+实验的结果图如下，图\ref{ex_sin}和\ref{ex_cosin}分别表示SIN和CoSIN聚类器的效果。取不同阈值$\rho$时的聚类效果都表明CoSIN网络是比SIN网络更好的聚类器。
+\end{experiment}
 
 \subsection{多感知器协同工作}
 
@@ -756,6 +850,7 @@ recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
 \bibitem{h1} M.J.Healy,Thomas P.Caudell, {\em A categorical semantic analysis of ART architectures}.IJCNN, 2011.
 
 \bibitem{h2} Modification of the ART-1 architecture based on category theoretic design principles.IJCNN,2005.
+
 
 \bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and
 recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
