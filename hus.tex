@@ -829,10 +829,37 @@ $t_i$和$b_i$以及$b_{N+i+1}$连接，$s_i$和$c_i$以及$c_{N+i+1}$连接。$F_1$和$F_2$层
 $R_3:[0.6,0.8] \times [0.6,0.8]$，$R_1:[0.2,0.4] \times [0.6,0.8]$。
 实验步骤是：首先在四个区域的范围内各随机生成100个点，用这四百个点放入SIN和CoSIN训练聚类器，最后比较同一个$\rho$值下聚类后正确分类的个数。
 称一个分类是正确分类指：存在一个j使得这个分类完全包含$R_j$内的点且只包含$R_j$内的点。
-实验的结果图如下，图\ref{ex_sin}和\ref{ex_cosin}分别表示SIN和CoSIN聚类器的效果。取不同阈值$\rho$时的聚类效果都表明CoSIN网络是比SIN网络更好的聚类器。
+实验的结果图如下，下面左图和中间图分别表示SIN和CoSIN聚类器的效果。取不同阈值$\rho$时的聚类效果（如下右图）表明CoSIN网络是比SIN网络更好的聚类器。
 \end{experiment}
+\begin{figure}\centering
+\includegraphics[width=.25\textwidth]{exp-SIN.eps}
+\includegraphics[width=.25\textwidth]{exp-CoSIN.eps}
+\includegraphics[width=.25\textwidth]{exp-table.eps}
+\end{figure}
 
 \subsection{多感知器协同工作}
+文献\cite{apt}中所描述的自适应共振模型是目前最好地描述人脑工作方式的模型，它提出人脑的工作是由多个感知器构成的不同网络的结合，其网络结构由任务的不同具有不同的结构。例如在视觉模块中用于确定物体分类、物体形状、物体颜色等概念的网络称为what stream，而用于确定物体位置，变化速度，运动方向等概念的网络称为where stream。这两部分感知器如果存在一定的连接则会更有利于分类或者聚类任务，因为一个网络中的特征有助于另一个网络的判断。例如，在what stream中当判断物体为飞机具有很大的置信度时，这个信息十分有利于判断它的运动速度较快并且可能是在天上。同样的，在人工神经网络需要处理多任务时，将不同的网络进行知识的统一会带来更好的结果。在这节中就试图通过范畴理论给出多感知器协同工作的一种结构。
+\begin{definition}
+如果图$G_1=(V_1,E_1)$和图$G_2=(V_2,E_2)$既没有公共的顶点，则称这两个图是相互独立的。
+\end{definition}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{asso.eps}
+    \caption{}
+    \label{asso}
+\end{figure}
+不同于本文前几节给出的从神经网络范畴到知识范畴的函子，出于方便的考虑，使用\cite{h1}中从知识范畴到神经网络范畴的函子。设两个感知器对应的神经网络范畴分别为$\bm{S_1}$ 和$\bm{S_2}$，它们的网络结构是相互独立的并且同为一个协同网络的子图，记此协同网络对应的神经网络范畴为$\bm{Asso}$。则$\bm{S_1}$ 和$\bm{S_2}$是$\bm{Asso}$的子范畴。记知识范畴$\bm{Know}$到$S_1$的函子为$M_1$，$\bm{Know}$到$S_2$的函子为$M_2$。$M_1+M_2$是$M_1$和$M_2$的直积，$\lambda_1:M_1 \to M_1+M_2$和$\lambda_2:M_2 \to M_1+M_2$分别嵌入的自然变换。于是有如上交换图
+
+于是在设计神经网络时也可以添加类似的直积的概念。以ART1网络为例，设两个不同用途的感知器都采用ART1网络进行分类任务。
+
+例如下图\ref{modi-asso}中$(F_0,F_1,F_2)$和$(G_0,G_1,G_2)$分别是两个ART1网络的输入层、隐藏层和输出层。$k_1^i$是将第二个感知器中的隐藏层与第一个感知器的隐藏层级联（直积）作为一个新的隐藏层接输出层的全连接到$F_2$，$t_1^i$是将第一个感知器中的隐藏层与第二个感知器的隐藏层级联（直积）作为一个新的隐藏层接输出层的全连接到$G_2$，回连时$F_2$和$G_2$仍然只激活最大的神经元，回馈时门限系统需要计算两个感知器匹配度的均值并与门限系统V中的阈值$\rho$比较，小于$\rho$时则重启系统挑选新的代表元。
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=76mm,height=39mm]{modi-asso.eps}
+    \caption{}
+    \label{modi-asso}
+\end{figure}
+
 
 \section{总结与展望}
 
@@ -840,7 +867,6 @@ $R_3:[0.6,0.8] \times [0.6,0.8]$，$R_1:[0.2,0.4] \times [0.6,0.8]$。
 参考文献}
 \renewcommand{\baselinestretch}{1.5}
 \small\normalsize
-
 
 
 \begin{thebibliography}{99}
@@ -851,25 +877,8 @@ recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
 
 \bibitem{h2} Modification of the ART-1 architecture based on category theoretic design principles.IJCNN,2005.
 
-
 \bibitem{apt} Stephen Grossberg, {\em Adaptive Resonance Theory:How a brain learns to consciously attend,learn,and
 recognize a changing world}. Neural Networks, {\bf 37}(2013),pp.1-47.
-
-\bibitem{dy} Yu Du and Haijun Wu, {\em Preasymptotic error analysis of higher order FEM and CIP-FEM
-for Helmholtz equation with high wave number}. SIAM J. Numer. Anal., {\bf 53}(2015), pp.
-782–804
-
-\bibitem{bgt} Bayliss, A., Gunzburger, M., and Turkel, E. 1982. {\em Boundary conditionsfor the numerical
-solution of elliptic equations in exterior regions.SIAM Journal of Applied Mathematics}
-, {\bf 42}: 430–451.
-
-\bibitem{wu}武海军, {\em 偏微分方程数值解法II},pp.61-73
-
-\bibitem{cw} Zhiming Chen and Haijun Wu, {\em Selected Topics in Finite Element Methods}, Science Press
-Beijing, 2010.
-
-\bibitem{ls} G.J Lord and A.M Stuart, {\em Discrete Gevrey regularity attractors and upperssemicontinuity for a finite difference approximation to the Ginzburg–Landau equation},
-Numer. funct. anal. and optim., {\bf 16} (1995), pp. 1003–1047.
 
 \thispagestyle{fancy} \fancyhead[C]{{\kaishu 参考文献 }}
 
